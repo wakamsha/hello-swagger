@@ -1,0 +1,10 @@
+/pets:
+  get:
+    $ref: ./pets/index.yaml
+  post:
+    $ref: ./pets/create.yaml
+/pets/{id}:
+  get:
+    $ref: ./pets/show.yaml
+  delete:
+    $ref: ./pets/delete.yaml
