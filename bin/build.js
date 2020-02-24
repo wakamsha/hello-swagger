@@ -7,11 +7,11 @@ const yaml = require('js-yaml');
 const specName = argv.spec;
 
 if (!specName) {
-  console.error('🙅‍♀️ app must be "pet-store"');
+  console.error('🙅‍♀️ API name must be passed as the sole argument: node bin/build.js --spec <spec name>');
   process.exit(1);
 }
 
-const rootYamlPath = path.resolve(__dirname, `../src/spec/${specName}/index.yaml`);
+const rootYamlPath = path.resolve(__dirname, `../packages/${specName}/src/index.yaml`);
 
 JsonRefs.resolveRefs(yaml.load(fs.readFileSync(rootYamlPath).toString()), {
   location: rootYamlPath,
@@ -20,5 +20,10 @@ JsonRefs.resolveRefs(yaml.load(fs.readFileSync(rootYamlPath).toString()), {
     processContent: (res, callback) => callback(null, yaml.load(res.text)),
   },
 }).then(results => {
-  fs.writeFileSync(path.resolve(__dirname, `../dist/spec/${specName}.json`), JSON.stringify(results.resolved, null, 2));
+  fs.writeFileSync(
+    path.resolve(__dirname, `../packages/${specName}/dist/spec/${specName}.json`),
+    JSON.stringify(results.resolved, null, 2),
+  );
 });
+
+console.log(`Building the API document for ${specName}...`);

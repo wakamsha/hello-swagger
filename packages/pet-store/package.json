@@ -1,0 +1,14 @@
+{
+  "name": "@swagger-hello/pet-store",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "reset": "rm -rf dist/; mkdir -p dist/spec/",
+    "copy": "cp ../core/src/index.html dist/index.html",
+    "generate": "node ../../bin/build.js --spec pet-store",
+    "watch": "chokidar \"src/**/*.yaml\" -c \"yarn generate\"",
+    "serve": "browser-sync start -c ../../bs-config.js",
+    "build": "yarn reset; yarn copy; yarn generate;",
+    "start": "yarn build; run-p \"watch\" \"serve\""
+  }
+}
