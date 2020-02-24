@@ -7,8 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.26.7",
-    "chokidar": "^3.3.0",
-    "connect-modrewrite": "^0.10.2",
+    "chokidar-cli": "^2.1.0",
     "glob": "^7.1.6",
     "js-yaml": "^3.13.1",
     "json-refs": "^3.0.13",
@@ -18,8 +17,10 @@
   "scripts": {
     "reset": "rm -rf dist/; mkdir -p dist/spec/",
     "copy": "cp src/index.html dist/index.html",
-    "generate": "node ./bin/generate.js",
+    "generate": "node ./bin/generate.js --spec pet-store",
+    "watch": "chokidar \"src/**/*.yaml\" -c \"yarn generate\"",
     "serve": "browser-sync start -c bs-config.js",
-    "build": "yarn reset; yarn copy; run-p \"generate -- --spec {1} {2}\" \"serve\" --"
+    "build": "yarn reset; yarn copy; yarn generate;",
+    "start": "yarn build; run-p \"watch\" \"serve\""
   }
 }
