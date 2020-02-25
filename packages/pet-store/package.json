@@ -4,11 +4,11 @@
   "license": "UNLICENSED",
   "scripts": {
     "reset": "rm -rf dist/; mkdir -p dist/spec/",
-    "copy": "cp ../core/src/index.html dist/index.html",
-    "generate": "node ../../bin/build.js --spec pet-store",
+    "template": "node ../../bin/build-template.js --spec pet-store",
+    "generate": "node ../../bin/build-spec.js     --spec pet-store",
     "watch": "chokidar \"src/**/*.yaml\" -c \"yarn generate\"",
     "serve": "browser-sync start -c ../../bs-config.js",
-    "build": "yarn reset; yarn copy; yarn generate;",
+    "build": "yarn reset; yarn template; yarn generate;",
     "start": "yarn build; run-p \"watch\" \"serve\""
   }
 }
